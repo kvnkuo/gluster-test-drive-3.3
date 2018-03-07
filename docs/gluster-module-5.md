@@ -77,39 +77,6 @@ Make sure the ``nfs.disable`` attribute is set to off. In case it's not, run
 sudo gluster volume set distvol nfs.disable off
 ```
 
-## SNAPSHOT PREREQUISITES
-
-The snapshots will consists of the same number of bricks as the original
-volumes. By default bricks communicate via privileged ports, but the number of
-such ports is limited to 1024. In order to support up to 256 snapshots per
-volume the glusterd must be allowed to use non-privileged ports.
-
-This can either be done manually by following the steps below or by running an
-ansible playbook. If you choose to use ansible, please run
-
-```bash
-ansible-playbook -i materials/ansible/inventory materials/ansible/module5.yaml
-```
-
-To achieve the same manually, please follow these steps:
-
-Permit insecure ports for the volume for which snapshots will be used:
-```bash
-# sudo gluster volume set distvol server.allow-insecure on
-```
-
-Edit ``/etc/glusterfs/glusterd.vol`` in every cluster node, and add the
-following line:
-```bash
-option rpc-auth-allow-insecure on
-```
-
-Then restart the glusterd service to make make the changes effective:
-```bash
-# sudo systemctl restart glusterd
-```
-
-
 ## NFS CLIENT ACCESS
 A Gluster volume can be accessed through multiple standard client protocols, as well as through specialized methods including the OpenStack Swift protocol and a direct API.  
                                                                                        
