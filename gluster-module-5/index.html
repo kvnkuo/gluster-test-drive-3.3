@@ -322,13 +322,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot-prerequisites" title="SNAPSHOT PREREQUISITES" class="md-nav__link">
-    SNAPSHOT PREREQUISITES
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#nfs-client-access" title="NFS CLIENT ACCESS" class="md-nav__link">
     NFS CLIENT ACCESS
   </a>
@@ -472,13 +465,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot-prerequisites" title="SNAPSHOT PREREQUISITES" class="md-nav__link">
-    SNAPSHOT PREREQUISITES
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#nfs-client-access" title="NFS CLIENT ACCESS" class="md-nav__link">
     NFS CLIENT ACCESS
   </a>
@@ -597,34 +583,6 @@ features.quota-deem-statfs: off
 
 <p>Make sure the <code>nfs.disable</code> attribute is set to off. In case it&rsquo;s not, run</p>
 <div class="codehilite"><pre><span></span>sudo gluster volume <span class="nb">set</span> distvol nfs.disable off
-</pre></div>
-
-
-<h2 id="snapshot-prerequisites">SNAPSHOT PREREQUISITES</h2>
-<p>The snapshots will consists of the same number of bricks as the original<br />
-volumes. By default bricks communicate via privileged ports, but the number of<br />
-such ports is limited to 1024. In order to support up to 256 snapshots per<br />
-volume the glusterd must be allowed to use non-privileged ports.</p>
-<p>This can either be done manually by following the steps below or by running an<br />
-ansible playbook. If you choose to use ansible, please run</p>
-<div class="codehilite"><pre><span></span>ansible-playbook -i materials/ansible/inventory materials/ansible/module5.yaml
-</pre></div>
-
-
-<p>To achieve the same manually, please follow these steps:</p>
-<p>Permit insecure ports for the volume for which snapshots will be used:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># sudo gluster volume set distvol server.allow-insecure on</span>
-</pre></div>
-
-
-<p>Edit <code>/etc/glusterfs/glusterd.vol</code> in every cluster node, and add the<br />
-following line:</p>
-<div class="codehilite"><pre><span></span>option rpc-auth-allow-insecure on
-</pre></div>
-
-
-<p>Then restart the glusterd service to make make the changes effective:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># sudo systemctl restart glusterd</span>
 </pre></div>
 
 
